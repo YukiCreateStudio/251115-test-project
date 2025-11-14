@@ -32,7 +32,7 @@ const client = createClient({
 
 //ニュースリストデータ取得//
 export const getNewsList = async (queries?: MicroCMSQueries) => {
-  const listDate = await client.getList<any>({
+  const listDate = await client.getList<News[]>({
     endpoint: "news",
     queries,
     customRequestInit: {
@@ -40,5 +40,17 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
     },
   });
   // console.log(listDate)
+  return listDate;
+};
+
+export const getMembersList = async (queries?: MicroCMSQueries) => {
+  const listDate = await client.getList<any>({
+    endpoint: "members",
+    queries,
+    customRequestInit: {
+      next: { revalidate: 60 },
+    },
+  });
+  console.log(listDate);
   return listDate;
 };
