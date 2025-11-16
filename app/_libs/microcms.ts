@@ -7,14 +7,23 @@ import type {
 } from "microcms-js-sdk";
 
 //type管理//
+export type Category = {
+  name: string;
+};
+
+export type Member = {
+  name: string;
+  position: string;
+  profile: string;
+  image: MicroCMSImage;
+} & MicroCMSListContent;
+
 export type News = {
-  id: string;
   title: string;
-  thumbnail: MicroCMSImage;
-  category: {
-    id: string;
-    name: string;
-  };
+  description: string;
+  content: string;
+  thumbnail?: MicroCMSImage;
+  category: Category;
 } & MicroCMSListContent;
 
 //API通信設定//
@@ -32,19 +41,19 @@ const client = createClient({
 
 //ニュースリストデータ取得//
 export const getNewsList = async (queries?: MicroCMSQueries) => {
-  const listDate = await client.getList<News[]>({
+  const listDate = await client.getList<News>({
     endpoint: "news",
     queries,
     customRequestInit: {
       next: { revalidate: 60 },
     },
   });
-  // console.log(listDate)
+  console.log(listDate);
   return listDate;
 };
 
 export const getMembersList = async (queries?: MicroCMSQueries) => {
-  const listDate = await client.getList<any>({
+  const listDate = await client.getList<Member>({
     endpoint: "members",
     queries,
     customRequestInit: {
