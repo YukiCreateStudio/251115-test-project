@@ -15,13 +15,19 @@ export default function Menu() {
       <nav className={classNames(styles.nav, isOpen && styles.open)}>
         <ul className={styles.items}>
           <li className={styles.item}>
-            <Link href="/news">ニュース</Link>
+            <Link onClick={close} href="/news">
+              ニュース
+            </Link>
           </li>
           <li className={styles.item}>
-            <Link href="/members">メンバー</Link>
+            <Link onClick={close} href="/members">
+              メンバー
+            </Link>
           </li>
           <li className={styles.item}>
-            <Link href="/contact">お問い合わせ</Link>
+            <Link onClick={close} href="/contact">
+              お問い合わせ
+            </Link>
           </li>
         </ul>
         <button

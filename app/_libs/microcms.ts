@@ -52,6 +52,19 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
   return listDate;
 };
 
+export const getNewsDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const listDate = await client.getListDetail<News>({
+    endpoint: "news",
+    contentId,
+    queries,
+  });
+  console.log(listDate);
+  return listDate;
+};
+
 export const getMembersList = async (queries?: MicroCMSQueries) => {
   const listDate = await client.getList<Member>({
     endpoint: "members",
