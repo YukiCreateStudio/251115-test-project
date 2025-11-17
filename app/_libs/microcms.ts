@@ -1,6 +1,7 @@
 import { createClient } from "microcms-js-sdk";
 import type {
   MicroCMSContentId,
+  MicroCMSDate,
   MicroCMSImage,
   MicroCMSListContent,
   MicroCMSQueries,
@@ -16,7 +17,8 @@ export type Member = {
   position: string;
   profile: string;
   image: MicroCMSImage;
-} & MicroCMSListContent;
+} & MicroCMSListContent &
+  MicroCMSDate;
 
 export type News = {
   title: string;
@@ -24,7 +26,8 @@ export type News = {
   content: string;
   thumbnail?: MicroCMSImage;
   category: Category;
-} & MicroCMSListContent;
+} & MicroCMSListContent &
+  MicroCMSDate;
 
 //API通信設定//
 if (!process.env.MICROCMS_DOMAIN) {
