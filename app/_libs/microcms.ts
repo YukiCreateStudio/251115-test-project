@@ -51,7 +51,7 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
       next: { revalidate: 60 },
     },
   });
-  console.log(listDate);
+  // console.log(listDate);
   return listDate;
 };
 
@@ -64,7 +64,7 @@ export const getNewsDetail = async (
     contentId,
     queries,
   });
-  console.log(listDate);
+  // console.log(listDate);
   return listDate;
 };
 
@@ -76,6 +76,6 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
       next: { revalidate: 60 },
     },
   });
-  console.log(listDate);
+  // console.log(listDate);
   return listDate;
 };
