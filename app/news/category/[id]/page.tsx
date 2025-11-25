@@ -13,19 +13,13 @@ type Props = {
 };
 
 export default async function page({ params }: Props) {
-  const { contents: news,totalCount } = await getNewsList({
+  const { contents: news, totalCount } = await getNewsList({
     limit: NEWS_LIST_LIMIT,
     filters: `category[equals]${params.id}`,
   });
   if (!news || news.length === 0) {
     notFound();
   }
-
-  // console.log("news:", news);
-  // console.log("!news:", !news);
-  // console.log("isArray", Array.isArray(news));
-  // console.log("length:", news?.length);
-  // console.log("params:", params);
 
   return (
     <>
@@ -35,7 +29,10 @@ export default async function page({ params }: Props) {
       </p>
       <NewsList news={news} />
       <ButtonLink href="/news">ニュース一覧へ</ButtonLink>
-      <Pagination totalCount={totalCount} basePath={`/news/category/${news[0].category}`}/>
+      <Pagination
+        totalCount={totalCount}
+        basePath={`/news/category/${params.id}`}
+      />
     </>
   );
 }

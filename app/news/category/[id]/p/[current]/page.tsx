@@ -1,3 +1,5 @@
+import ButtonLink from "@/app/_components/ButtonLink";
+import CategoryTag from "@/app/_components/CategoryTag";
 import NewsList from "@/app/_components/NewsList";
 import Pagination from "@/app/_components/Pagination";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
@@ -6,30 +8,38 @@ import { notFound } from "next/navigation";
 
 type Props = {
   params: {
+    id: string;
     current: string;
-    id:string;
   };
 };
 
 export default async function page({ params }: Props) {
   const current = parseInt(params.current, 10);
-
+  const { contents: news, totalCount } = await getNewsList({
+    limit: NEWS_LIST_LIMIT,
+    offset: NEWS_LIST_LIMIT * (current - 1),
+    filters: `category[equals]${params.id}`,
+  });
   if (Number.isNaN(current) || current < 1) {
     notFound();
   }
-  const { contents: news, totalCount } = await getNewsList({
-    filters: `category[equals]${params.id}`,
-    limit: NEWS_LIST_LIMIT,
-    offset: NEWS_LIST_LIMIT * (current - 1),
-  });
-  if (news.length === 0) {
+  if (!news || news.length === 0) {
     notFound();
   }
 
   return (
     <>
+      <p>
+        <CategoryTag category={news[0].category} />
+        の一覧
+      </p>
       <NewsList news={news} />
-      <Pagination totalCount={totalCount} current={current} />
+      <ButtonLink href="/news">ニュース一覧へ</ButtonLink>
+      <Pagination
+        totalCount={totalCount}
+        current={current}
+        basePath={`/news/category/${params.id}`}
+      />
     </>
   );
 }

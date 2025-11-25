@@ -1,6 +1,6 @@
-import { NEWS_LIST_LIMIT } from "@/app/_constants";
-import styles from "./index.module.css";
 import Link from "next/link";
+import styles from "./index.module.css";
+import { NEWS_LIST_LIMIT } from "@/app/_constants";
 import classNames from "classnames";
 
 type Props = {
@@ -12,26 +12,28 @@ type Props = {
 export default function Pagination({
   totalCount,
   current = 1,
-  basePath = "/news"
+  basePath = "/news",
 }: Props) {
   const pages = Array.from(
     { length: Math.ceil(totalCount / NEWS_LIST_LIMIT) },
     (_, i) => i + 1
   );
-
   return (
     <nav>
       <ul className={styles.container}>
         {pages.map((p) => (
-          <li key={p} className={styles.list}>
-            {current !== p ? (
-              <Link href={`${basePath}/p/${p}`} className={styles.item}>
-                {p}
-              </Link>
-            ) : (
+          <li key={p} className={styles.List}>
+            {current === p ? (
               <span className={classNames(styles.item, styles.current)}>
                 {p}
               </span>
+            ) : (
+              <Link
+                href={`${basePath}/p/${p}`}
+                className={classNames(styles.item)}
+              >
+                {p}
+              </Link>
             )}
           </li>
         ))}
