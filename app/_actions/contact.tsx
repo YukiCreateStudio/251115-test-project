@@ -54,5 +54,29 @@ export async function createContactData(_prevState: any, formData: FormData) {
       message: "メッセージを入力してください",
     };
   }
+
+  const web3FormData = new FormData();
+  web3FormData.append("access_key", process.env.WEB3FORMS_KEY!);
+
+  web3FormData.append("lastname", rawFormData.lastname);
+  web3FormData.append("firstname", rawFormData.firstname);
+  web3FormData.append("company", rawFormData.company);
+  web3FormData.append("email", rawFormData.email);
+  web3FormData.append("message", rawFormData.message);
+
+  const response = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    body: web3FormData,
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    return {
+      status: "error",
+      message: "送信中にエラーが発生しました",
+    };
+  }
+
   return { status: "success", message: "OK" };
 }
