@@ -10,7 +10,7 @@ import type {
 //type管理//
 export type Category = {
   name: string;
-  id:string;
+  id: string;
 };
 
 export type Member = {
@@ -48,11 +48,8 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
   const listDate = await client.getList<News>({
     endpoint: "news",
     queries,
-    customRequestInit: {
-      next: { revalidate: 60 },
-    },
   });
-  console.log(listDate);
+  // console.log(listDate);
   return listDate;
 };
 
@@ -73,9 +70,6 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
   const listDate = await client.getList<Member>({
     endpoint: "members",
     queries,
-    customRequestInit: {
-      next: { revalidate: 60 },
-    },
   });
   // console.log(listDate);
   return listDate;

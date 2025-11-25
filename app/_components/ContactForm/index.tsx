@@ -11,7 +11,7 @@ const initialState = {
 
 export default function ContactForm() {
   const [state, formAction] = useFormState(createContactData, initialState);
-  console.log(state);
+  // console.log(state);
   if (state.status === "success") {
     return (
       <>
