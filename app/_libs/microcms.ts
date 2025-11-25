@@ -10,6 +10,7 @@ import type {
 //type管理//
 export type Category = {
   name: string;
+  id:string;
 };
 
 export type Member = {
