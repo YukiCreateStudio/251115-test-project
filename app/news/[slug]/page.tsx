@@ -4,6 +4,8 @@ import styles from "./page.module.css";
 import ButtonLink from "@/app/_components/ButtonLink";
 import { notFound } from "next/navigation";
 
+export const runtime = 'edge';
+
 type Props = {
   params: {
     slug: string;
